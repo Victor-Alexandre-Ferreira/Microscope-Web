@@ -1,0 +1,28 @@
+.bookends {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bookends--content {
+  color: black;
+  padding: 1rem;
+}
+.bookends--card {
+  width: 100%;
+  padding: 0 !important;
+}
+
+.bookends--column {
+  width: 20% !important;
+}
+
+.bookends--title {
+  font-size: large;
+  margin-bottom: 0.5rem !important;
+}
+.start-end {
+  width: 100%;
+}
+#grid-start-end {
+  justify-content: space-between;
+}

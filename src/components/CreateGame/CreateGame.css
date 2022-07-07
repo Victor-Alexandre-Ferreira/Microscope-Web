@@ -1,0 +1,24 @@
+.lobby {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.lobby--form {
+  margin: 0 auto !important;
+  display: flex;
+}
+
+.lobby--left {
+  width: 40%;
+}
+
+.lobby--right {
+  width: 60%;
+  margin-left: 3rem;
+}
+
+.lobby--submit.ui.button.button {
+  margin-bottom: 3rem;
+  text-align: right;
+  margin-right: 2rem;
+}

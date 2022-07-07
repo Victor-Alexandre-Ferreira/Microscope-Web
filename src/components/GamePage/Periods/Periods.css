@@ -1,0 +1,26 @@
+.periods-container {
+  margin-top: 25px;
+  /* display: flex; */
+}
+
+.ui.grid > .row {
+  flex-wrap: nowrap;
+  margin-top: 25px;
+  overflow: auto;
+}
+
+.ui[class*="one column"].grid > .row > .column {
+  min-width: 33% !important;
+}
+
+.ui.card {
+  margin: 1em 0;
+  width: 100%;
+  word-wrap: break-word;
+  box-shadow: none;
+}
+
+.ui.card > .content > .description,
+.ui.cards > .card > .content > .description {
+  color: rgb(247, 239, 239, 68%);
+}

@@ -1,0 +1,50 @@
+.profile {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.profile--form {
+  margin: 4rem auto;
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+.profile--game-card {
+  box-shadow: none !important;
+}
+
+.ui.card > .content > .header,
+.ui.cards > .card > .content > .header {
+  color: white;
+}
+
+.profile--form-input {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.pwd {
+  margin-top: 3rem;
+}
+
+.profile--form-submit {
+  width: 50%;
+  margin: 3rem auto !important;
+}
+
+.profile--gamesSection {
+  margin: 3rem auto;
+  width: 90%;
+}
+
+.profile--title {
+  margin: 2rem auto;
+  width: 90%;
+}
+
+@media (max-width: 769px) {
+  .profile {
+    width: 100%;
+    margin: 0 auto;
+  }
+}

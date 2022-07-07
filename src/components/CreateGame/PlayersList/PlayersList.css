@@ -1,0 +1,24 @@
+.players {
+  margin: 3rem auto;
+}
+
+players--title {
+  margin-bottom: 4rem;
+  text-align: left;
+  width: 80%;
+}
+
+.player--items {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.player--field {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.ui.form .field > label {
+  color: white;
+}

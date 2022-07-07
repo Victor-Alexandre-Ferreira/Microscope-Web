@@ -1,0 +1,42 @@
+.contact {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 11rem;
+}
+
+.contact-form {
+  margin: 3rem auto;
+}
+
+.contact-form-message,
+.contact-form-input {
+  margin-bottom: 2rem !important;
+}
+.contact-form-message textarea {
+  height: 15rem;
+}
+
+.contact-form-button {
+  margin-top: 3rem !important;
+}
+
+/* @media (min-width: 50em) {
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+    }
+    .App-logo {
+        margin: 0px;
+    }
+   
+    
+
+} */
