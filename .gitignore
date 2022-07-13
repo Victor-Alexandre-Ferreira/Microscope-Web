@@ -1,9 +1,12 @@
 # Sqitch
 sqitch.conf
-sqitch.plan
+
 
 # dotenv environment variables file
 .env
 
 # Dependency directories
 node_modules/
+
+# seeding
+data_seeding/

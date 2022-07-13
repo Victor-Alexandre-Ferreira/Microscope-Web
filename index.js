@@ -1,16 +1,21 @@
-// file made to run the http server
+const express = require('express');
+const router = require('./router');
+const cors = require('cors');
 
-// We use http module for testing our implementations
-const http = require('http');
+const app = express();
 
-// Our app needs to reference ./app who contains an Express app
-const app = require('./app');
+// We use the middleware to parse JSON payload
+app.use(express.json());
 
-// We will listen on the port in our dotenv file else the port 3000
-const PORT = process.env.PORT ?? 3000;
+// We use the middleware to parse urlencoded payload
+app.use(express.urlencoded({ extended: true }));
 
-const server = http.createServer(app);
+// We will need to implement CORS restrictions (don't forget to require it !)
+// it will look like this:
+app.use(cors("*"));
 
-server.listen(PORT, () => {
-    console.log(`Listening on http://localhost:${PORT}`);
-});
+
+
+app.use(router);
+
+module.exports = app;
