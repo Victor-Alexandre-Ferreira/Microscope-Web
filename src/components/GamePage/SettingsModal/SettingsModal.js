@@ -16,7 +16,11 @@ function SettingsModal({ bigPicture, palettes }) {
       open={open}
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
-      trigger={<Button inverted>Paramètres de la partie</Button>}
+      trigger={
+        <Button inverted className="h-20 w-40">
+          Paramètres de la partie
+        </Button>
+      }
     >
       <Modal.Content>
         <div className="settings">

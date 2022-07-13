@@ -10,8 +10,8 @@ import ScrollDown from "../../assets/ScrollDown.svg";
 import { actionLogout } from "../../actions/loginActions";
 import { requestGameId } from "requests";
 import { clearGame } from "actions/gameActions";
-import { useEffect } from "react";
-import "./HomePage.css";
+// import { useEffect } from "react";
+import "./HomePage.scss";
 // import shadow from "../../assets/parallax/Shadow.svg";
 // import space from "../../assets/parallax/space2.svg";
 // import moon from "../../assets/parallax/Moon.svg";
@@ -26,33 +26,33 @@ function HomePage() {
   // const gameId = useSelector((state) => state.game.gameId);
 
   //parallax
-  useEffect(() => {
-    isDesktop &&
-      (function () {
-        // Add event listener
-        document.addEventListener("mousemove", parallax);
-        const elem = document.querySelector(".home");
-        // Magic happens here
-        function parallax(e) {
-          let _w = window.innerWidth / 2;
-          let _h = window.innerHeight / 2;
-          let _mouseX = e.clientX;
-          let _mouseY = e.clientY;
-          let _depth1 = `${50 - (_mouseX - _w) * -0.01}% ${
-            50 - (_mouseY - _h) * -0.01
-          }%`;
-          let _depth2 = `${30 - (_mouseX - _w) * 0.01}% ${
-            30 - (_mouseY - _h) * 0.01
-          }%`;
-          let _depth3 = `${30 - (_mouseX - _w) * 0.02}% ${
-            30 - (_mouseY - _h) * 0.02
-          }%`;
-          let x = `${_depth3}, ${_depth2}, ${_depth1}`;
-          // console.log(x);
-          elem.style.backgroundPosition = x;
-        }
-      })();
-  }, []);
+  // useEffect(() => {
+  //   isDesktop &&
+  //     (function () {
+  //       // Add event listener
+  //       document.addEventListener("mousemove", parallax);
+  //       const elem = document.querySelector(".home");
+  //       // Magic happens here
+  //       function parallax(e) {
+  //         let _w = window.innerWidth / 2;
+  //         let _h = window.innerHeight / 2;
+  //         let _mouseX = e.clientX;
+  //         let _mouseY = e.clientY;
+  //         let _depth1 = `${50 - (_mouseX - _w) * -0.01}% ${
+  //           50 - (_mouseY - _h) * -0.01
+  //         }%`;
+  //         let _depth2 = `${30 - (_mouseX - _w) * 0.01}% ${
+  //           30 - (_mouseY - _h) * 0.01
+  //         }%`;
+  //         let _depth3 = `${30 - (_mouseX - _w) * 0.02}% ${
+  //           30 - (_mouseY - _h) * 0.02
+  //         }%`;
+  //         let x = `${_depth3}, ${_depth2}, ${_depth1}`;
+  //         // console.log(x);
+  //         elem.style.backgroundPosition = x;
+  //       }
+  //     })();
+  // }, []);
 
   const handleCreatelobby = async () => {
     dispatch(clearGame());
@@ -73,8 +73,8 @@ function HomePage() {
   };
 
   return (
-    <div className="home">
-      <div className="page">
+    <div className="homepage">
+      <div className="page h-screen">
         {isDesktop && (
           <HomePageLinks
             handleLogout={() => {
@@ -85,30 +85,32 @@ function HomePage() {
         )}
         <Header />
         {isMobile && (
-          <div className="buttons-mobile">
+          <div className="flex flex-col">
             <Button
-              className="button-mobile"
+              className="!mb-6"
               inverted
-              onClick={() => navigate(isConnected ? "/lobby" : "/login")}
+              onClick={
+                isConnected ? handleCreatelobby : () => navigate("/login")
+              }
             >
               Créer une partie
             </Button>
             <Button
-              className="button-mobile"
+              className="!mb-6"
               inverted
               onClick={() => navigate("/archived")}
             >
               Parties archivées
             </Button>
             <Button
-              className="button-mobile"
+              className="!mb-6"
               inverted
               onClick={() => navigate("/login")}
             >
               Se connecter
             </Button>
             <Button
-              className="button-mobile"
+              className="!mb-6"
               inverted
               onClick={() => navigate("/signup")}
             >
@@ -122,16 +124,20 @@ function HomePage() {
           </div>
         )}
         {isDesktop && (
-          <div className="buttons-desktop">
+          <div className="buttons-desktop flex flex-col items-end mt-52">
             <Button
-              className="menu-button"
+              size="big"
+              className="menu-button w-60 !mb-6"
               inverted
-              onClick={handleCreatelobby}
+              onClick={
+                isConnected ? handleCreatelobby : () => navigate("/login")
+              }
             >
               Créer une partie
             </Button>
             <Button
-              className="menu-button"
+              size="big"
+              className="menu-button w-60 !mb-6"
               inverted
               onClick={() => navigate("/archived")}
             >
@@ -150,7 +156,7 @@ function HomePage() {
       </div>
 
       <div className="rules">
-        <h2 className="rules--main">Règles du jeu</h2>
+        <h2 className="text-3xl font-bold underline">Règles du jeu</h2>
         <h3 className="rules--sub">
           Bienvenue sur l’application microscope web. Cette dernière vise à
           adapter Microscope, un jeu d’écriture collaboratif publié pour la

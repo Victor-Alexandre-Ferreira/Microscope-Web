@@ -60,20 +60,20 @@ function GamePage() {
   // }, [focus]);
 
   return (
-    <div className="game">
+    <div className="gamepage">
       <HomeNav />
-      <ul className="players-usernames">
+      <ul className="flex">
         {players &&
           players.map(
             (player) =>
               player?.id && (
-                <li key={player.id} className="player-username">
+                <li key={player.id} className="mx-auto mt-8 mb-8">
                   {player.username}
                 </li>
               )
           )}
       </ul>
-      <div className="settings-section">
+      <div className="settings-section flex justify-between mb-8">
         <SettingsModal palettes={palettes} bigPicture={bigPicture} />
         <Focus />
         <FocusCreationModal />

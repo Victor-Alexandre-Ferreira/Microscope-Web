@@ -25,19 +25,19 @@ function CreateGame() {
   }, []);
 
   return (
-    <div className="lobby">
+    <div className="lobby w-4/5 mx-auto">
       <Form
-        className="lobby--form"
+        className="lobby--form flex mt-6"
         onSubmit={(event) => {
           event.preventDefault();
           dispatch(createGame());
           navigate(`/game/${gameId}`);
         }}
       >
-        <div className="lobby--left">
+        <div className="lobby--left w-2/5">
           <PlayersList />
         </div>
-        <div className="lobby--right">
+        <div className="lobby--right w-3/5">
           <BigPicture />
           <StartEnd />
           <Palette />

@@ -4,7 +4,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { updateNewGameForm } from "../../../../actions/gameActions";
 import { Checkbox, Form } from "semantic-ui-react";
-import "../ColorTone/ColorTone.css";
+import "../ColorTone/ColorTone.scss";
 
 function ColorSlider({ tone, isStartOrEnd }) {
   const dispatch = useDispatch();

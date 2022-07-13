@@ -42,14 +42,14 @@ function FocusCreationModal() {
   console.log("create focus text", newFocus);
 
   return (
-    <div className="create-focus">
+    <div className="create-focus ">
       <Modal
         centered={false}
         open={open}
         // onClose={() => setOpen(false)}   {() => setOpen(false)}
         onOpen={() => setOpen(true)}
         trigger={
-          <Button inverted className="nav--link">
+          <Button inverted className="nav--link h-20 w-40">
             Créer un focus
           </Button>
         }

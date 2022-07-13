@@ -4,10 +4,9 @@ import { Routes, Route } from "react-router-dom";
 import LoginPage from "../LoginPage/LoginPage";
 import HomePage from "../HomePage/HomePage";
 import SignUpPage from "../SignUpPage/SignUpPage";
-import "../App/App.css";
+import "../App/App.scss";
 import TOU from "../TOU/TOU";
 import Contact from "../Contact/Contact";
-import "../App/App.css";
 import ArchivedGames from "../ArchivedGames/ArchivedGames";
 import { saveAuthorization, axiosInstance } from "../../requests";
 import GamePage from "../GamePage/GamePage";
@@ -52,7 +51,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="App bg-black w-9/12 mx-auto text-white">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />

@@ -11,8 +11,8 @@ function StartEnd() {
   const end = useSelector((state) => state.game.end);
   const dispatch = useDispatch();
   return (
-    <div className="bookend">
-      <div className="bookend--titles">
+    <div className="bookend flex justify-between">
+      <div className="bookend--titles w-2/5">
         <h2 className="bookend--titles-title">Début</h2>
         <Form.Field
           value={start}
@@ -26,7 +26,7 @@ function StartEnd() {
         />
         <ColorTone tone={game.startTone} isStartOrEnd={"start"} />
       </div>
-      <div className="bookend--titles">
+      <div className="bookend--titles w-2/5">
         <h2 className="bookend--titles-title">Fin</h2>
         <Form.Field
           value={end}

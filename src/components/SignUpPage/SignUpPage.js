@@ -24,14 +24,14 @@ function SignUpPage() {
     <div className="signup">
       <Header />
       <form
-        className="signup--form"
+        className="signup--form flex flex-col md:!mt-44 md:mx-auto md:w-3/5"
         onSubmit={(event) => {
           event.preventDefault();
           dispatch(sendSignup());
         }}
       >
         <Input
-          className="signup--form-input"
+          className="signup--form-input mb-6"
           placeholder="Nom d'utilisateur"
           type="text"
           value={username}
@@ -40,7 +40,7 @@ function SignUpPage() {
           }}
         />
         <Input
-          className="signup--form-input"
+          className="signup--form-input mb-6"
           placeholder="Email"
           type="email"
           value={emailSignup}
@@ -49,7 +49,7 @@ function SignUpPage() {
           }}
         />
         <Input
-          className="signup--form-input"
+          className="signup--form-input mb-6"
           placeholder="Mot de passe"
           type="password"
           value={passwordSignup}
@@ -58,11 +58,14 @@ function SignUpPage() {
           }}
         />
 
-        <Button className="signup--form-submit" inverted type="submit">
+        <Button className="signup--form-submit !mt-6" inverted type="submit">
           Inscription
         </Button>
-        <p className="signup--form-message">
-          Déja inscrit ? <Link to="/login">Connectez-vous</Link>
+        <p className="signup--form-message mt-3">
+          Déja inscrit ?{" "}
+          <Link className="text-gray-500 font-semibold" to="/login">
+            Connectez-vous
+          </Link>
         </p>
       </form>
     </div>

@@ -25,7 +25,7 @@ function LoginPage() {
       {/* <SecondaryHeader /> */}
       <Header />
       <Form
-        className="login--form"
+        className="login--form md:!mt-44 md:mx-auto md:w-3/5"
         onSubmit={(event) => {
           event.preventDefault();
           dispatch(sendLogin());
@@ -37,7 +37,7 @@ function LoginPage() {
           //   content: "Please enter a valid email username",
           //   pointing: "below",
           // }}
-          className="login--form-input"
+          className="login--form--input !mb-6"
           placeholder="Nom d'utilisateur"
           type="text"
           value={username || ""}
@@ -46,7 +46,7 @@ function LoginPage() {
           }}
         />
         <Form.Input
-          className="login--form-input"
+          className="login--form--input !mb-6"
           placeholder="Mot de passe"
           type="password"
           value={password || ""}
@@ -54,11 +54,18 @@ function LoginPage() {
             dispatch(updateLoginForm("password", event.target.value));
           }}
         />
-        <Button inverted className="login--form-submit" type="submit">
+        <Button
+          inverted
+          className="login--form--submit !mt-6 w-full"
+          type="submit"
+        >
           Connexion
         </Button>
-        <p className="login--form-message">
-          Pas de compte ? <Link to="/signup">Inscrivez-vous</Link>
+        <p className="login--form-message mt-3">
+          Pas de compte ?{" "}
+          <Link className="text-gray-500 font-semibold" to="/signup">
+            Inscrivez-vous
+          </Link>
         </p>
       </Form>
     </div>

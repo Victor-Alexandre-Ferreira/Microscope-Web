@@ -1,8 +1,0 @@
-.ui.checkbox label,
-.ui.checkbox input:focus ~ label {
-  color: white;
-}
-
-.ui.checkbox label:hover {
-  color: white;
-}
