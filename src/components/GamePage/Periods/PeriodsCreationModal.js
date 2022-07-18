@@ -54,7 +54,7 @@ function PeriodsCreationModal() {
         open={open}
         onOpen={() => setOpen(true)}
         trigger={
-          <Button inverted className="nav--link">
+          <Button inverted className="w-full !mb-8 !text-base ">
             Créer une période
           </Button>
         }

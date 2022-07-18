@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { Card, Grid } from "semantic-ui-react";
 import EventsCreationModal from "../EventsCreationModal/EventsCreationModal";
 import ScenesCreationModal from "../ScenesCreationModal/ScenesCreationModal";
-import "./Periods.css";
 
 function Periods() {
   const periods = useSelector((state) => state.game.periods);

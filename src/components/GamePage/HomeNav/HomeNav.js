@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useNavigate } from "react-router-dom";
 import { Button } from "semantic-ui-react";
-import "./HomeNav.css";
 
 function HomeNav() {
   const navigate = useNavigate();
@@ -10,7 +9,7 @@ function HomeNav() {
       onClick={() => navigate("/")}
       inverted
       size="tiny"
-      className="lobby--home-button"
+      className="w-full !mb-8 !mt-6 !text-base"
       type="button"
     >
       Retourner à l'acceuil
