@@ -1,8 +1,14 @@
 const gameDatamapper = require('../models/gameDatamapper');
+
 const playerDatamapper = require('../models/playerDatamapper');
 const paletteDatamapper = require('../models/paletteDatamapper');
+
 const userDatamapper = require('../models/userDatamapper');
-const cardDatamapper = require('../models/cardDatamapper');
+
+const periodDatamapper = require('../models/periodDatamapper');
+const eventDatamapper = require('../models/eventDatamapper');
+const sceneDatamapper = require('../models/sceneDatamapper');
+const focusDatamapper = require('../models/focusDatamapper');
 
 
 const gameController = {
@@ -18,9 +24,9 @@ const gameController = {
 
          const game = await gameDatamapper.findByCreatorId(userId);
 
-         return response.json({ Message: `New game created by ${creator.username} !`, gameId: game.id });
+         return response.status(201).json({ Message: `New game created by ${creator.username} !`, gameId: game.id });
       } catch (err) {
-         response.json({ errorType: err.message });
+         response.status(502).json({ errorType: err.message, errorMessage: "Game creation failed" });
      }
    },
 
@@ -67,10 +73,10 @@ const gameController = {
             }        
          });
       
-         return response.json({ Message: "game deployed successfully !" });
+         return response.status(201).json({ Message: "game deployed successfully !" });
 
       } catch (err) {
-         return response.json({ errorLog: err.message, errorMessage: "Unable to deploy the game!" });
+         return response.status(502).json({ errorLog: err.message, errorMessage: "Unable to deploy the game!" });
       } 
    },
 
@@ -92,25 +98,25 @@ const gameController = {
             players.push({ id: playerInfo.id, username: playerInfo.username, position: player.position })
          });         
 
-         const focuses = await cardDatamapper.findFocusByGameId(request.params.id);
+         const focuses = await focusDatamapper.findByGameId(request.params.id);
 
          // We also need to retrieve the palette colors
          const palette = await paletteDatamapper.findByGameId(request.params.id);
 
          // The period object is composed of period of our game and each subsequent event which also reach to related scenes
-         const periods = await cardDatamapper.findPeriodByGameId(request.params.id);
+         const periods = await periodDatamapper.findByGameId(request.params.id);
 
          if (periods) {
          
             for (let i = 0; i < periods.length; i++) {
 
-               const eventsFound = await cardDatamapper.findEventByPeriodId(periods[i].id);
+               const eventsFound = await eventDatamapper.findByPeriodId(periods[i].id);
 
                if (eventsFound) {
                   
                   for (let j = 0; j < eventsFound.length; j++) {
 
-                     const scenesFound = await cardDatamapper.findSceneByEventId(eventsFound[j].id);
+                     const scenesFound = await sceneDatamapper.findByEventId(eventsFound[j].id);
 
                      if (scenesFound) {
                         eventsFound[j].scenes = scenesFound;
@@ -120,10 +126,10 @@ const gameController = {
                }
             }
          }
-         return response.json({ game, players, palette, focuses, periods });
+         return response.status(200).json({ game, players, palette, focuses, periods });
 
       } catch (err) {
-         return response.json({ errorType: err.message, errorMessage: "Failed to find game"});
+         return response.status(404).json({ errorType: err.message, errorMessage: "Failed to find game"});
       }
    },
 
@@ -133,10 +139,10 @@ const gameController = {
 
          const gameToArchive = request.params.id;
          await gameDatamapper.updateGame({ state: "archived"}, gameToArchive);
-         return response.json({Message: "Success ! Game Archived !"});
+         return response.status(204).json({Message: "Success ! Game Archived !"});
 
       } catch (err){
-         response.json({ errorType: err.message });
+         response.status(502).json({ errorType: err.message, errorMessage: "Game Not Archived !" });
       }      
    },
 
@@ -145,10 +151,10 @@ const gameController = {
       try {
 
          const gameList = await gameDatamapper.findAll();
-         return response.json({ gameList });
+         return response.status(200).json({ gameList });
 
       } catch (err){
-         response.json({ errorType: err.message });
+         response.status(502).json({ errorType: err.message, errorMessage: "Unable To Acces Games List !" });
       }
    },
 
@@ -157,10 +163,10 @@ const gameController = {
       try {
 
          const archivedList = await gameDatamapper.findAllArchived();
-         return response.json({ archivedList });
+         return response.status(200).json({ archivedList });
 
       } catch (err){
-         response.json({ errorType: err.message });
+         response.status(502).json({ errorType: err.message, errorMessage: "Unable To Acces Archived Games List !" });
       }
    },
 
@@ -179,22 +185,22 @@ const gameController = {
          // The player object will retrieve data in the "participation" table
          const players = await userDatamapper.findByGameId(request.params.id);
 
-         const focuses = await cardDatamapper.findFocusByGameId(request.params.id);
+         const focuses = await focusDatamapper.findByGameId(request.params.id);
 
          // The period object is composed of period of our game and each subsequent event which also reach to related scenes
-         const periods = await cardDatamapper.findPeriodByGameId(request.params.id);
+         const periods = await periodDatamapper.findByGameId(request.params.id);
 
          if (periods) {
          
             for (let i = 0; i < periods.length; i++) {
 
-               const eventsFound = await cardDatamapper.findEventByPeriodId(periods[i].id);
+               const eventsFound = await eventDatamapper.findByPeriodId(periods[i].id);
 
                if (eventsFound) {
                   
                   for (let j = 0; j < eventsFound.length; j++) {
 
-                     const scenesFound = await cardDatamapper.findSceneByEventId(eventsFound[j].id);
+                     const scenesFound = await sceneDatamapper.findByEventId(eventsFound[j].id);
 
                      if (scenesFound) {
                         eventsFound[j].scenes = scenesFound;
@@ -204,10 +210,10 @@ const gameController = {
                }
             }
          }
-         return response.json({ game, players, focuses, periods });
+         return response.status(200).json({ game, players, focuses, periods });
          
       } catch (err) {
-         return response.json({ errorType: err.message, errorMessage: "Failed to find game"});
+         return response.status(502).json({ errorType: err.message, errorMessage: "Unable to access Archived Game !"});
       }
    }
 }

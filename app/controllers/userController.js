@@ -9,10 +9,10 @@ const userController = {
         try {
 
             const userList = await userDatamapper.findAll();
-            return response.json({ userList });
+            return response.status(200).json({ userList });
 
         } catch (err){
-            response.json({ errorType: err.message });
+            response.status(502).json({ errorType: err.message, errorMessage: "Unable to access User List !" });
         }        
     },
 
@@ -23,7 +23,7 @@ const userController = {
             const user = await userDatamapper.findByPk(request.params.id);
             
             if (!user) {
-                return response.json({ errorMessage: "no user found"});
+                return response.status(404).json({ errorMessage: "no user found"});
             }
 
             // We need to query for games where the user participate
@@ -39,10 +39,10 @@ const userController = {
                 }
             }
     
-            return response.json({ username: user.username, email: user.email, userId: user.id, gameList });
+            return response.status(200).json({ username: user.username, email: user.email, userId: user.id, gameList });
 
         } catch (err) {
-            response.json({ errorType: err.message });
+            response.status(502).json({ errorType: err.message, errorMessage: "Unable to access User !" });
         }        
     },
 
@@ -53,13 +53,13 @@ const userController = {
             const user = await userDatamapper.findByPk(request.params.id);
             
             if (!user) {
-                return response.json({ errorMessage: "no user found"});
+                return response.status(404).json({ errorMessage: "no user found"});
             }
     
             return response.json(user);
 
         } catch (err) {
-            response.json({ errorType: err.message });
+            response.status(502).json({ errorType: err.message, errorMessage: "Unable to access User as Admin !" });
         }        
     },
 
@@ -77,7 +77,7 @@ const userController = {
                     field = 'email';
                 }
 
-                return response.json({ errorMessage: `Other user already exists with this ${field}` });            
+                return response.status(406).json({ errorMessage: `Other user already exists with this ${field}` });            
             }
 
             // We use bcrypt module to hash our password value
@@ -85,10 +85,10 @@ const userController = {
 
             await userDatamapper.insert(request.body, hashedPassword);
             
-            return response.json("New user created");
+            return response.status(201).json("New user created");
 
         } catch (err) {
-            response.json({ errorType: err.message });
+            response.status(502).json({ errorType: err.message, errorMessage: "Unable to create User !" });
         }    
     },
 
@@ -98,14 +98,14 @@ const userController = {
             const user = await userDatamapper.findByPk(request.params.id);
 
             if (!user) {
-                return response.json({ errorMessage: `User not found` });
+                return response.status(404).json({ errorMessage: `User not found` });
             }
 
             await userDatamapper.delete(request.params.id);
-            return response.json({ errorMessage: `User deleted` });
+            return response.status(200).json({ errorMessage: `User deleted` });
 
         } catch (err) {
-            response.json({ errorType: err.message });
+            response.status(502).json({ errorType: err.message, errorMessage: "Unable to delete User !" });
         }        
     },
 
@@ -117,7 +117,7 @@ const userController = {
             const user = await userDatamapper.findByPk(request.params.id);
 
             if (!user) {
-                return response.status(404).json();
+                return response.status(404).json({ errorMessage: `User not found` });
             }
 
             if (request.body.username || request.body.email) {
@@ -132,15 +132,15 @@ const userController = {
                     } else {
                         field = 'email';
                     }
-                    return response.status(400).json({ errorMessage: `Other user already exists with this ${field}` });
+                    return response.status(406).json({ errorMessage: `Other user already exists with this ${field}` });
                 }
             }
 
             const savedUser = await userDatamapper.update(request.params.id, request.body);
-            return response.json(savedUser);
+            return response.status(204).json(savedUser);
             
         } catch (err) {
-            response.json({ errorType: err.message });
+            response.status(502).json({ errorType: err.message, errorMessage: "Unable to update User !" });
         }        
     }
 };

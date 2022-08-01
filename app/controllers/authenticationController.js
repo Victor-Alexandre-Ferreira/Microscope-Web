@@ -18,7 +18,7 @@ const authenticationController = {
 
          if (!user) {
             console.log("!user");
-            return response.json({ errorMessage : "user not found" });
+            return response.status(404).json({ errorMessage : "user not found" });
          }
          // Validate if password is correct using bcrypt
          const passwordVerified = await bcrypt.compare(request.body.password, user.password);
@@ -38,15 +38,13 @@ const authenticationController = {
             // We send our user
             console.log(`user connected as ${user.role}`);
             
-            return response.json({ username: user.username, email: user.email, userId: user.id, token });
+            return response.status(200).json({ username: user.username, email: user.email, userId: user.id, token });
          }
          else {
-            console.log("in else login");
-            return response.json({ errorMessage : "Invalid Credentials" });
+            return response.status(403).json({ errorMessage : "Invalid Credentials" });
          }
       } catch (err) {
-         console.log("in catch login");
-         return response.json({errotType: err.message, errorMessage: "Unable to check credentials"});
+         return response.status(404).json({errotType: err.message, errorMessage: "Unable to check credentials"});
       }
    },
 
@@ -61,17 +59,17 @@ const authenticationController = {
          jwt.verify(token, process.env.TOKEN_KEY, function (err, decoded){
 
             if (err) {
-               return response.json({ errorMessage: "Token invalid" });
+               return response.status(403).json({ errorMessage: "Token invalid" });
                
             }
 
-            return response.json({ userId: decoded.userId, userName: decoded.userName,  Message: "Token valid !"});
+            return response.status(200).json({ userId: decoded.userId, userName: decoded.userName,  Message: "Token valid !"});
 
          });
 
       }
       catch (err) {
-         return response.json({errotType: err.message, errorMessage: "Unable to verify the token"});
+         return response.status(404).json({errotType: err.message, errorMessage: "Unable to verify the token"});
       }
    }
 }
