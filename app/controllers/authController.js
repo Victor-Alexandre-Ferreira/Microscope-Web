@@ -17,13 +17,10 @@ const authenticationController = {
          const user = await userDatamapper.findUserByUsername(request.body.username);
 
          if (!user) {
-            console.log("!user");
             return response.status(404).json({ errorMessage : "user not found" });
          }
          // Validate if password is correct using bcrypt
          const passwordVerified = await bcrypt.compare(request.body.password, user.password);
-
-         console.log("username", username);
 
          if (user && passwordVerified) {
             // Create JSON token
