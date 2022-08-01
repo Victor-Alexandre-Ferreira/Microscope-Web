@@ -24,9 +24,9 @@ const gameController = {
 
          const game = await gameDatamapper.findByCreatorId(userId);
 
-         return response.json({ Message: `New game created by ${creator.username} !`, gameId: game.id });
+         return response.status(201).json({ Message: `New game created by ${creator.username} !`, gameId: game.id });
       } catch (err) {
-         response.json({ errorType: err.message });
+         response.status(502).json({ errorType: err.message, errorMessage: "Game creation failed" });
      }
    },
 
@@ -73,10 +73,10 @@ const gameController = {
             }        
          });
       
-         return response.json({ Message: "game deployed successfully !" });
+         return response.status(201).json({ Message: "game deployed successfully !" });
 
       } catch (err) {
-         return response.json({ errorLog: err.message, errorMessage: "Unable to deploy the game!" });
+         return response.status(502).json({ errorLog: err.message, errorMessage: "Unable to deploy the game!" });
       } 
    },
 
@@ -126,10 +126,10 @@ const gameController = {
                }
             }
          }
-         return response.json({ game, players, palette, focuses, periods });
+         return response.status(200).json({ game, players, palette, focuses, periods });
 
       } catch (err) {
-         return response.json({ errorType: err.message, errorMessage: "Failed to find game"});
+         return response.status(404).json({ errorType: err.message, errorMessage: "Failed to find game"});
       }
    },
 
@@ -139,10 +139,10 @@ const gameController = {
 
          const gameToArchive = request.params.id;
          await gameDatamapper.updateGame({ state: "archived"}, gameToArchive);
-         return response.json({Message: "Success ! Game Archived !"});
+         return response.status(204).json({Message: "Success ! Game Archived !"});
 
       } catch (err){
-         response.json({ errorType: err.message });
+         response.status(502).json({ errorType: err.message, errorMessage: "Game Not Archived !" });
       }      
    },
 
@@ -151,10 +151,10 @@ const gameController = {
       try {
 
          const gameList = await gameDatamapper.findAll();
-         return response.json({ gameList });
+         return response.status(200).json({ gameList });
 
       } catch (err){
-         response.json({ errorType: err.message });
+         response.status(502).json({ errorType: err.message, errorMessage: "Unable To Acces Games List !" });
       }
    },
 
@@ -163,10 +163,10 @@ const gameController = {
       try {
 
          const archivedList = await gameDatamapper.findAllArchived();
-         return response.json({ archivedList });
+         return response.status(200).json({ archivedList });
 
       } catch (err){
-         response.json({ errorType: err.message });
+         response.status(502).json({ errorType: err.message, errorMessage: "Unable To Acces Archived Games List !" });
       }
    },
 
@@ -210,10 +210,10 @@ const gameController = {
                }
             }
          }
-         return response.json({ game, players, focuses, periods });
+         return response.status(200).json({ game, players, focuses, periods });
          
       } catch (err) {
-         return response.json({ errorType: err.message, errorMessage: "Failed to find game"});
+         return response.status(502).json({ errorType: err.message, errorMessage: "Unable to access Archived Game !"});
       }
    }
 }

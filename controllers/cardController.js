@@ -25,7 +25,7 @@ const cardController = {
                         position = 1;
                   }
                   const focus = await focusDatamapper.insert(request.body, position, request.params.id);                        
-                  return response.json({ Message: "Focus creation succeed !", focus});
+                  return response.status(201).json({ Message: "Focus creation succeed !", focus});
             }
             else {
                   // SOC distribution
@@ -72,10 +72,10 @@ const cardController = {
                         card = await sceneDatamapper.insert(request.body);
                   }
                   // Check status code for error            
-                  return response.json({ Message: `${request.body.cardType} creation succeed !`, card});
+                  return response.status(201).json({ Message: `${request.body.cardType} creation succeed !`, card});
             } 
       } catch (err) {
-            return response.json({errorType: err.message, errorMessage: "Card creation failed"});
+            return response.status(502).json({errorType: err.message, errorMessage: "Card creation failed"});
       }
    },
 }
