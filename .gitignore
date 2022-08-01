@@ -1,6 +1,5 @@
 # Sqitch
 sqitch.conf
-sqitch.plan
 
 # dotenv environment variables file
 .env
