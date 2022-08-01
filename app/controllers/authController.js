@@ -7,7 +7,7 @@ const authenticationController = {
    async login (request, response) {
 
       try {
-         // Validate user input         
+         // Validate user input   
          const { username, password } = request.body;
 
          if (!(username && password)) {

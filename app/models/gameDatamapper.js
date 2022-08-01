@@ -77,7 +77,7 @@ const gameDatamapper = {
 
    async findAllArchived() {
         
-      const result = await client.query('SELECT * FROM "game" WHERE "game".state = archived;');
+      const result = await client.query('SELECT * FROM "game" WHERE "state" = "archived";');
 
       if (result.rowCount === 0) {
           return null;
