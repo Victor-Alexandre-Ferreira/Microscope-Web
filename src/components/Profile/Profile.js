@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
-import { Button, Card, Divider, Input } from "semantic-ui-react";
+import { Form, Button, Card, Divider, Input } from "semantic-ui-react";
 import Header from "../Header/Header";
 import "./Profile.css";
 
@@ -12,32 +12,32 @@ function Profile() {
   return (
     <div className="profile">
       <Header />
-      <form
-        className="profile--form"
+      <Form
+        className="profile--form flex flex-col md:!mt-44 md:!mb-44 !mb-24 md:mx-auto md:w-3/5"
         onSubmit={(event) => {
           event.preventDefault();
         }}
       >
         <Input
-          className="profile--form-input"
+          className="profile--form-input !mb-6"
           placeholder="Nom d'utilisateur"
           type="text"
           value={username || ""}
         />
         <Input
-          className="profile--form-input"
+          className="profile--form-input !mb-6"
           placeholder="Email"
           type="email"
           value={email || ""}
         />
         <Input
-          className="profile--form-input pwd"
+          className="profile--form-input pwd !mb-6"
           placeholder="Mot de passe"
           type="password"
           value={""}
         />
         <Input
-          className="profile--form-input"
+          className="profile--form-input !mb-6"
           placeholder="Confirmer le mot de passe"
           type="password"
           value={""}
@@ -45,7 +45,7 @@ function Profile() {
         <Button inverted className="profile--form-submit" type="submit">
           Modifier
         </Button>
-      </form>
+      </Form>
       <Divider inverted />
       <h2 className="profile--title">Parties en cours</h2>
       <div className="profile--gamesSection">
