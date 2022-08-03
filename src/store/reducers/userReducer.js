@@ -22,7 +22,8 @@ const initialState = {
   username: "",
   emailSignup: "",
   passwordSignup: "",
-  error: "",
+  confirmPasswordSignup: "",
+  error: false,
 };
 
 function userReducer(state = initialState, action = {}) {
@@ -73,6 +74,18 @@ function userReducer(state = initialState, action = {}) {
       return {
         ...state,
         [action.payload.field]: action.payload.value,
+      };
+
+    case "PASSWORDS_MISMATCH":
+      return {
+        ...state,
+        error: action.payload.error,
+      };
+
+    case "PASSWORDS_MATCH":
+      return {
+        ...state,
+        error: action.payload.error,
       };
 
     case LOGIN_SUCCESS:

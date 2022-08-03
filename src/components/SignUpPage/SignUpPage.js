@@ -11,7 +11,11 @@ function SignUpPage() {
 
   const emailSignup = useSelector((state) => state.user.emailSignup);
   const passwordSignup = useSelector((state) => state.user.passwordSignup);
+  const confirmPasswordSignup = useSelector(
+    (state) => state.user.confirmPasswordSignup
+  );
   const username = useSelector((state) => state.user.username);
+  const error = useSelector((state) => state.user.error);
   const isSignedUp = useSelector((state) => state.user.isSignedUp);
 
   const navigate = useNavigate();
@@ -19,6 +23,24 @@ function SignUpPage() {
   useEffect(() => {
     if (isSignedUp) navigate("/login");
   }, [isSignedUp]);
+
+  useEffect(() => {
+    if (passwordSignup != confirmPasswordSignup) {
+      dispatch({
+        type: "PASSWORDS_MISMATCH",
+        payload: {
+          error: true,
+        },
+      });
+    } else {
+      dispatch({
+        type: "PASSWORDS_MATCH",
+        payload: {
+          error: false,
+        },
+      });
+    }
+  }, [passwordSignup, confirmPasswordSignup]);
 
   return (
     <div className="signup">
@@ -49,6 +71,7 @@ function SignUpPage() {
           }}
         />
         <Input
+          error={error}
           className="signup--form-input mb-6"
           placeholder="Mot de passe"
           type="password"
@@ -58,7 +81,32 @@ function SignUpPage() {
           }}
         />
 
-        <Button className="signup--form-submit !mt-6" inverted type="submit">
+        <Input
+          error={error}
+          className="signup--form-input mb-6"
+          placeholder="Confirmer le mot de passe"
+          type="password"
+          value={confirmPasswordSignup}
+          onChange={(event) => {
+            dispatch(
+              updateSignupForm("confirmPasswordSignup", event.target.value)
+            );
+          }}
+        />
+
+        {/* Submit button is disabled if passwords don't match or if any field is empty */}
+        <Button
+          disabled={
+            error ||
+            !username ||
+            !emailSignup ||
+            !passwordSignup ||
+            !confirmPasswordSignup
+          }
+          className="signup--form-submit !mt-6"
+          inverted
+          type="submit"
+        >
           Inscription
         </Button>
         <p className="signup--form-message mt-3">
