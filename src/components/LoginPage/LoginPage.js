@@ -12,7 +12,7 @@ function LoginPage() {
   const username = useSelector((state) => state.user.username);
   const password = useSelector((state) => state.user.password);
   const isConnected = useSelector((state) => state.user.isConnected);
-  const error = useSelector((state) => state.user.error);
+  const loginError = useSelector((state) => state.user.loginError);
   const navigate = useNavigate();
   console.log("username vide ", username);
 
@@ -25,18 +25,15 @@ function LoginPage() {
       {/* <SecondaryHeader /> */}
       <Header />
       <Form
+        error={loginError}
         className="login--form md:!mt-44 md:mx-auto md:w-3/5"
         onSubmit={(event) => {
           event.preventDefault();
           dispatch(sendLogin());
         }}
       >
-        <Message error header="Action Forbidden" content={error} />
+        <Message error header="Erreur de connexion :" content={loginError} />
         <Form.Input
-          // error={{
-          //   content: "Please enter a valid email username",
-          //   pointing: "below",
-          // }}
           className="login--form--input !mb-6"
           placeholder="Nom d'utilisateur"
           type="text"

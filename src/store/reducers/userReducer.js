@@ -15,6 +15,7 @@ const initialState = {
   password: "",
   isConnected: false,
   isSignedUp: false,
+  loginError: "",
   token: null,
   userId: null,
   currentUser: null,
@@ -105,7 +106,7 @@ function userReducer(state = initialState, action = {}) {
     case LOGIN_ERROR:
       return {
         ...state,
-        error: action.payload.error,
+        loginError: action.payload.error,
       };
 
     default:
