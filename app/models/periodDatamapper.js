@@ -14,19 +14,18 @@ const periodDatamapper = {
    },
 
    async findAllByPosition (data) {
-
+      console.log("data", data);
       const preparedQuery = {
-            text: `SELECT * FROM "period" WHERE position >= $1 AND $2 = $3`,
-            values: [data.previous_card_position + 1, `${data.parentType}_id`, data.parentId]
-         };
-
+            text: `SELECT * FROM "period" WHERE position >= $1 AND "game_id" = $2`,
+            values: [data.previous_card_position + 1, data.parentId]
+      };
+      console.log("preparedQuery", preparedQuery);
       const result = await client.query(preparedQuery);   
-
+      console.log("result.rows", result.rows);
       return result.rows;
    },
    
    async insert (data) {
-
       const preparedQuery = {
             text: `INSERT INTO "period" ("text", "tone", "position", "game_id") VALUES ($1, $2, $3, $4) RETURNING *`,
             values: [data.text, data.tone, data.previous_card_position + 1, data.parentId]

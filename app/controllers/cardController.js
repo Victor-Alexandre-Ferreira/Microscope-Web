@@ -10,7 +10,6 @@ const cardController = {
    async createCard (request, response) {
       
       try {
-
             // Focus card have incremental position so no need to change positions
             // Other need to detect positions, because the player can choose to put a card before one already created
 
@@ -29,18 +28,18 @@ const cardController = {
             }
             else {
                   // SOC distribution
-                  const cardsToMove = {};
+                  let cardsToMove = {};
 
-                  if(data.cardType === "period") {
+                  if(request.body.cardType === "period") {
                         cardsToMove = await periodDatamapper.findAllByPosition(request.body);
                   }
-                  else if (data.cardType === "event") {
-                        cardsToMove = await eventDatamapper.findAllByPosition(request.body);
+                  else if (request.body.cardType === "event") {
+                        cardsToMove = await eventDatamapper.findAllByPosition(request.body);s
                   }
-                  else if (data.cardType === "scene"){
+                  else if (request.body.cardType === "scene") {
                         cardsToMove = await sceneDatamapper.findAllByPosition(request.body);
                   }
-            
+                  console.log("cardsToMove", cardsToMove);
                   if (cardsToMove) {
                         // SOC distribution
                         if (request.body.cardType === "period") {
@@ -60,18 +59,18 @@ const cardController = {
                         }                                   
                   }
 
-                  const card = {};
+                  let card = {};
 
                   if (request.body.cardType === "period") {
                         card = await periodDatamapper.insert(request.body);
                   }
-                  if (request.body.cardType === "period") {
+                  if (request.body.cardType === "event") {
                         card = await eventDatamapper.insert(request.body);
                   }
-                  if (request.body.cardType === "period") {
+                  if (request.body.cardType === "scene") {
                         card = await sceneDatamapper.insert(request.body);
                   }
-                  // Check status code for error            
+            
                   return response.status(201).json({ Message: `${request.body.cardType} creation succeed !`, card});
             } 
       } catch (err) {

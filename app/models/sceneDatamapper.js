@@ -16,8 +16,8 @@ const sceneDatamapper = {
    async findAllByPosition (data) {
 
       const preparedQuery = {
-            text: `SELECT * FROM "scene" WHERE position >= $1 AND $2 = $3`,
-            values: [data.previous_card_position + 1, `${data.parentType}_id`, data.parentId]
+            text: `SELECT * FROM "scene" WHERE position >= $1 AND "event_id" = $2`,
+            values: [data.previous_card_position + 1, data.parentId]
          };
 
       const result = await client.query(preparedQuery);   
